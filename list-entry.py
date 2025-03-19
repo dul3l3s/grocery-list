@@ -15,7 +15,7 @@ PORT = os.getenv("port")
 DBNAME = os.getenv("dbname")
 
 item_arr = [
-       '',
+       '-Required-',
        'Hardlines',
        'Produce',
        'Meat',
@@ -46,8 +46,8 @@ try:
     # Item entry form
     with st.form("list_entry", clear_on_submit=True):
         st.write("Enter item")
-        item_type = st.selectbox('Select item type', item_arr)
-        item_desc = st.text_input("Item description:")
+        item_type = st.selectbox('Select item type', item_arr, placeholder='Required')
+        item_desc = st.text_input("Item description:", placeholder='Required')
         item_qty = st.number_input("Select quantity:", min_value=0)
 
         st.form_submit_button('Submit')
@@ -60,11 +60,12 @@ try:
     # Create a cursor to execute SQL queries
     cursor = connection.cursor()
 
-    # Insert into example
-    cursor.execute(
-        "insert into grocery_list (item_qty, item_type, item_desc) values (%s, %s, %s)",
-        (item_qty, item_type, item_desc)
-    )
+    if item_qty > 0 and item_desc != '' and item_type !='':
+        # Insert into example
+        cursor.execute(
+            "insert into grocery_list (item_qty, item_type, item_desc) values (%s, %s, %s)",
+            (item_qty, item_type, item_desc)
+        )
 
     # Example query
     cursor.execute("SELECT * from grocery_list;")
@@ -77,8 +78,12 @@ try:
     st.dataframe(df, use_container_width=True)
 
     # Delete a record
+    del_id = st.number_input('Entry deletion ID', min_value=0)
+    st.write(del_id)
     try:
-        cursor.execute("delete from grocery_list where id = 9")
+        cursor.execute(
+            f"delete from grocery_list where id = {del_id}"
+        )
     except Exception as e:
         st.write(f"error deleting: {e}")
 
