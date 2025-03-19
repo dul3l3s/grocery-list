@@ -76,6 +76,12 @@ try:
     # Display the dataframe with streamlit
     st.dataframe(df, use_container_width=True)
 
+    # Delete a record
+    try:
+        cursor.execute("delete from grocery_list where id = 9")
+    except Exception as e:
+        st.write(f"error deleting: {e}")
+
     print("Results:", rows)
     for r in rows:
         print(f"{r}")
