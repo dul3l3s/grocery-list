@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from db import db_connection
+from functions.db import db_connection
 
 item_arr = [
        '-Required-',

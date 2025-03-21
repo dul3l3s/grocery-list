@@ -3,7 +3,6 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 
-
 @st.cache_resource
 def db_connection():
     # Load environment variables from .env
@@ -30,4 +29,4 @@ def db_connection():
     except Exception as e:
         print(f"Failed to connect: {e}")
         st.write(f"Failed to connect: {e}")
-
+        return e
