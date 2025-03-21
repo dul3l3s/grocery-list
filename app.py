@@ -8,4 +8,5 @@ def main():
     truncate_list()
     display_list()
 
+
 main()
