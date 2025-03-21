@@ -1,11 +1,14 @@
 import streamlit as st
+import pandas as pd
 from functions.selectbox import sorted_list
 from functions.db import db_connection
 
+# Reusable db connection
+connection = db_connection()
+cursor = connection.cursor()
+
 def enter_item():
     item_arr = sorted_list()
-    connection = db_connection()
-    cursor = connection.cursor()
 
     with st.form("list_entry", clear_on_submit=True):
         left, middle, right, r2 = st.columns(4, vertical_alignment="bottom", gap="medium")
@@ -23,6 +26,22 @@ def enter_item():
             # Commit changes
             connection.commit()
 
-    form = left, middle, right, r2
 
-    return form
+def display_list():
+    # Example Select query
+    cursor.execute("SELECT * from grocery_list;")
+    rows = cursor.fetchall()
+
+    # Place database table into a pandas dataframe
+    df = pd.DataFrame(rows)
+
+    # Display the dataframe with streamlit
+    st.dataframe(df, use_container_width=True)
+
+
+def truncate_list():
+    del_btn = st.button("Delete list?", key='del_btn')
+    if del_btn:
+        cursor.execute("Truncate grocery_list")
+        # Commit changes
+        connection.commit()

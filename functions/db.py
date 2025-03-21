@@ -3,7 +3,7 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 
-@st.cache_resource
+
 def db_connection():
     # Load environment variables from .env
     load_dotenv()
