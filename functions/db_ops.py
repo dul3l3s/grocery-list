@@ -17,7 +17,7 @@ def enter_item():
         item_qty = right.number_input("Quantity", min_value=0)
         submit_btn = r2.form_submit_button('Submit')
 
-        if submit_btn and item_type != "" and item_desc != "" and item_qty != 0:
+        if submit_btn and item_type != "-Required-" and item_desc != "" and item_qty != 0:
             # Insert into example
             cursor.execute(
                 "insert into grocery_list (item_qty, item_type, item_desc) values (%s, %s, %s)",
