@@ -29,7 +29,7 @@ def enter_item():
 
 def display_list():
     # Example Select query
-    cursor.execute("SELECT * from grocery_list;")
+    cursor.execute("SELECT item_desc, item_type, item_qty from grocery_list;")
     rows = cursor.fetchall()
 
     # Place database table into a pandas dataframe
