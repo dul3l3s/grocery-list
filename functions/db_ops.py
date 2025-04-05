@@ -27,9 +27,9 @@ def enter_item():
             connection.commit()
 
 
-def display_list():
+def display_list(query):
     # Example Select query
-    cursor.execute("SELECT item_desc, item_type, item_qty from grocery_list;")
+    cursor.execute(query)
     rows = cursor.fetchall()
 
     # Place database table into a pandas dataframe
